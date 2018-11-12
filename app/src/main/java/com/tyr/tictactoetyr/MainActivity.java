@@ -1,5 +1,7 @@
 package com.tyr.tictactoetyr;
 
+import android.content.Context;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.Constraints;
@@ -7,32 +9,88 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.GridLayout;
 import android.widget.ImageView;
+import android.widget.SeekBar;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
     boolean GameIsActive;
+    boolean OptionsIsVisible;
+    boolean audioPaused;
     int playerToPlay;
     MediaPlayer mplayer;
+    AudioManager audioManager;
     int GameTable[][] = new int[3][3];
     int clickValidTable[] = new int[9];
-
+    ImageView nextPlayerImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        audioManager = (AudioManager)getSystemService(Context.AUDIO_SERVICE);
+        int MaxVolume = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        int currVoulme = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        SeekBar volumeControl = (SeekBar)findViewById(R.id.seekBar);
+        volumeControl.setMax(MaxVolume);
+        volumeControl.setProgress(currVoulme);
+        volumeControl.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
+                audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,i,0);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
         //RED is 0
         //Blue is 1
         playerToPlay = 0;
+        nextPlayerImage = (ImageView)findViewById(R.id.nextPlayer);
         restartGame();
     }
 
     public void onRestartClick(View view) {
         restartGame();
     }
-
+    public void onOptionsClick(View view) {
+        ConstraintLayout oLayout=(ConstraintLayout)findViewById(R.id.OptionsLayout);
+        ConstraintLayout gLayout=(ConstraintLayout)findViewById(R.id.GameTableLayout);
+        Button restartButton=(Button)findViewById(R.id.restartButton);
+        Button optionsButton=(Button)findViewById(R.id.optionsButton);
+        if(!OptionsIsVisible){
+            oLayout.setVisibility(View.VISIBLE);
+            gLayout.setVisibility(View.INVISIBLE);
+            restartButton.setVisibility(View.INVISIBLE);
+            OptionsIsVisible = true;
+        }else{
+            oLayout.setVisibility(View.INVISIBLE);
+            gLayout.setVisibility(View.VISIBLE);
+            restartButton.setVisibility(View.VISIBLE);
+            OptionsIsVisible = false;
+        }
+    }
+    public void onPausePlayClick(View view){
+        ImageView pausePlayButton = (ImageView)view;
+        if(audioPaused){
+            mplayer.start();
+            audioPaused=false;
+            pausePlayButton.setImageResource(R.drawable.pause);
+        } else {
+            mplayer.pause();
+            audioPaused=true;
+            pausePlayButton.setImageResource(R.drawable.play);
+        }
+    }
     private void restartGame() {
         if(mplayer!=null)
             mplayer.stop();
@@ -42,6 +100,8 @@ public class MainActivity extends AppCompatActivity {
         ConstraintLayout gameLayout=findViewById(R.id.GameTableLayout);
         ImageView cellImage;
         GameIsActive = true;
+        OptionsIsVisible = false;
+        audioPaused = false;
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 GameTable[i][j] = -1;
@@ -126,7 +186,7 @@ public class MainActivity extends AppCompatActivity {
                     if(clickValidTable[i]==-1)
                         TIE = false;
                 }
-                if(TIE){
+                if(TIE && GameIsActive){
                     mplayer.stop();
                     mplayer.setLooping(false);
                     mplayer = MediaPlayer.create(this,R.raw.bell);
@@ -147,8 +207,10 @@ public class MainActivity extends AppCompatActivity {
                 }
                 if (playerToPlay == 0) {
                     playerToPlay = 1;
+                    nextPlayerImage.setImageResource(R.drawable.bluecircle);
                 } else {
                     playerToPlay = 0;
+                    nextPlayerImage.setImageResource(R.drawable.redcircle);
                 }
             }
         }

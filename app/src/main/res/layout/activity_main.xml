@@ -21,7 +21,7 @@
         android:layout_marginBottom="8dp"
         android:background="@color/colorPrimary"
         android:onClick="onRestartClick"
-        android:text="RESTART GAME"
+        android:text="@string/restart_button"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -39,74 +39,95 @@
         android:layout_height="45dp"
         android:layout_marginStart="8dp"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="13dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
         android:background="@color/colorPrimary"
-        android:text="OPTIONS"
+        android:onClick="onOptionsClick"
+        android:text="@string/options_button"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/nextPlayer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_conversion_absoluteHeight="48dp"
         tools:layout_conversion_absoluteWidth="368dp" />
-    <!--
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/optionsLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/OptionsLayout"
+        android:layout_width="380dp"
+        android:layout_height="450dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="8dp"
+        android:background="@android:color/holo_green_light"
+        android:padding="3dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/GameTableLayout"
+        app:layout_constraintHorizontal_bias="0.214"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/optionsButton"
+        app:layout_constraintVertical_bias="0.0"
+        tools:layout_conversion_absoluteHeight="447dp"
+        tools:layout_conversion_absoluteWidth="368dp">
+
+        <SeekBar
+            android:id="@+id/seekBar"
+            style="@android:style/Widget.DeviceDefault.SeekBar"
+            android:layout_width="331dp"
+            android:layout_height="34dp"
+            android:layout_marginStart="6dp"
+            android:layout_marginLeft="6dp"
+            android:layout_marginTop="32dp"
             android:background="@android:color/darker_gray"
-            android:padding="3dp"
-            android:visibility="invisible"
-            tools:layout_conversion_absoluteHeight="447dp"
-            tools:layout_conversion_absoluteWidth="368dp"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="56dp">
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.232"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView"
+            tools:layout_conversion_absoluteHeight="25dp"
+            tools:layout_conversion_absoluteWidth="327dp" />
 
-            <SeekBar
-                android:id="@+id/seekBar"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.68"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:layout_conversion_absoluteHeight="25dp"
-                tools:layout_conversion_absoluteWidth="327dp"
-                tools:layout_editor_absoluteX="32dp"
-                tools:layout_editor_absoluteY="135dp" />
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="192dp"
+            android:layout_height="31dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:background="@android:color/darker_gray"
+            android:padding="5dp"
+            android:text="@string/volume_control_text"
+            android:textColor="@android:color/holo_blue_dark"
+            android:textSize="18sp"
+            app:layout_constraintEnd_toStartOf="@+id/pauseOrPlay"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_conversion_absoluteHeight="26dp"
+            tools:layout_conversion_absoluteWidth="128dp" />
 
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="5dp"
-                android:text="Volume Control"
-                android:textColor="@android:color/holo_blue_dark"
-                app:layout_constraintBottom_toTopOf="@+id/seekBar"
-                app:layout_constraintEnd_toStartOf="@+id/switchOffVolume"
-                app:layout_constraintHorizontal_bias="0.326"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.621"
-                tools:layout_conversion_absoluteHeight="26dp"
-                tools:layout_conversion_absoluteWidth="128dp"
-                tools:layout_editor_absoluteX="34dp"
-                tools:layout_editor_absoluteY="88dp" />
-
-            <ImageView
-                android:id="@+id/switchOffVolume"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@android:drawable/ic_lock_silent_mode_off"
-                tools:layout_conversion_absoluteHeight="26dp"
-                tools:layout_conversion_absoluteWidth="28dp"
-                tools:layout_editor_absoluteX="201dp"
-                tools:layout_editor_absoluteY="87dp" />
-        </android.support.constraint.ConstraintLayout>-->
+        <ImageView
+            android:id="@+id/pauseOrPlay"
+            android:layout_width="36dp"
+            android:layout_height="31dp"
+            android:layout_marginTop="35dp"
+            android:layout_marginEnd="56dp"
+            android:layout_marginRight="56dp"
+            android:background="@android:color/holo_green_light"
+            android:contentDescription="@string/switch_off_volume"
+            android:onClick="onPausePlayClick"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/pause"
+            tools:layout_conversion_absoluteHeight="26dp"
+            tools:layout_conversion_absoluteWidth="28dp" />
+    </android.support.constraint.ConstraintLayout>
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/GameTableLayout"
@@ -117,7 +138,7 @@
         android:layout_marginTop="12dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="7dp"
         android:background="@drawable/box"
         android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -264,5 +285,16 @@
             tools:layout_conversion_absoluteWidth="100dp" />
 
     </android.support.constraint.ConstraintLayout>
+
+    <ImageView
+        android:id="@+id/nextPlayer"
+        android:layout_width="44dp"
+        android:layout_height="45dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/redcircle" />
 
 </android.support.constraint.ConstraintLayout>

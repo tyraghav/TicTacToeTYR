@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">TicTacToeTYR</string>
+    <string name="restart_button">RESTART GAME</string>
+    <string name="options_button">OPTIONS</string>
+    <string name="volume_control_text">Volume Control</string>
+    <string name="switch_off_volume">Switch ON/OFF volume</string>
 </resources>
